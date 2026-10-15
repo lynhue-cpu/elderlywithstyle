@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elderly with Style | 潮嬷型公 互动数码志</title>
-    <!-- 引入符合高颜值杂志排版的 Google Fonts -->
+    <title>Elderly with Style | 潮嬷型公 独立数码志</title>
+    <!-- 引入符合杂志美学的 Google 字体 -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Space+Grotesk:wght@400;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-dark: #222125;           /* 截图中的高级炭黑背景 */
-            --teal-shape: #13635b;        /* 标志性的浓郁松石绿/青色有机框 */
-            --pink-accent: #ff3399;       /* 亮丽洋红色 */
-            --text-light: #f7f4ed;        /* 柔和米白色文字 */
-            --card-dark: #2c2a2e;
+            --bg-dark: #222125;           /* 高级炭黑背景 */
+            --teal-shape: #13635b;        /* 标志性松石绿有机框 */
+            --pink-accent: #ff6699;       /* 洋红色点缀 */
+            --yellow-zine: #f4c430;       /* 经典杂志内页黄 */
+            --text-light: #f7f4ed;        /* 米白文字 */
+            --text-dark: #111111;         /* 极黑文字 */
         }
 
         * {
@@ -27,7 +28,7 @@
             color: var(--text-light);
             font-family: 'Space Grotesk', sans-serif;
             overflow-x: hidden;
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
         /* 顶部高定杂志导航栏 */
@@ -35,309 +36,333 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.8rem 4rem;
+            padding: 2rem 4rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             position: sticky;
             top: 0;
             background-color: rgba(34, 33, 37, 0.95);
             backdrop-filter: blur(10px);
-            z-index: 100;
+            z-index: 1000;
         }
 
         .zine-brand {
             font-family: 'Playfair Display', serif;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             font-weight: 700;
             letter-spacing: 1px;
         }
 
-        .nav-menu {
+        .nav-links {
             display: flex;
-            gap: 1.5rem;
+            gap: 2rem;
         }
 
-        .nav-tab {
-            background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+        .nav-link {
             color: var(--text-light);
-            padding: 0.5rem 1.2rem;
-            font-family: 'Space Grotesk', sans-serif;
+            text-decoration: none;
+            font-size: 0.9rem;
             font-weight: 600;
-            font-size: 0.85rem;
-            cursor: pointer;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
             text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+            transition: opacity 0.3s;
         }
 
-        .nav-tab:hover, .nav-tab.active {
-            background-color: var(--text-light);
-            color: var(--bg-dark);
-            border-color: var(--text-light);
+        .nav-link:hover {
+            opacity: 1;
         }
 
-        /* 页面容器 */
-        .page {
-            display: none;
-            min-height: calc(100vh - 90px);
-            padding: 4rem 2rem;
-            max-width: 1300px;
-            margin: 0 auto;
-            animation: fadeIn 0.5s ease forwards;
-        }
-
-        .page.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- 首页：1:1 复刻高级杂志封面 (0 copy.jpg) --- */
-        .cover-section {
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 4rem;
+        /* 杂志页面区块通用样式 */
+        .zine-spread {
+            min-height: 100vh;
+            padding: 6rem 4rem;
+            display: flex;
             align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
         }
 
-        /* 标志性的松石绿有机不规则花瓣图框 */
-        .organic-frame-container {
+        /* --- Spread 1：封面设计 (复刻 0 copy.jpg & 1.jpg) --- */
+        .spread-cover {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            max-width: 1400px;
+            width: 100%;
+        }
+
+        .organic-cover-box {
             position: relative;
             width: 100%;
-            height: 580px;
+            height: 600px;
             background-color: var(--teal-shape);
-            /* 模仿截图中的有机花瓣形状剪裁 */
             border-radius: 40% 60% 55% 45% / 50% 40% 60% 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-            overflow: visible;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
         }
 
-        /* 封面主标题：复刻渐变艺术字体效果 */
-        .magazine-title-overlay {
+        .cover-title-group {
             position: absolute;
-            bottom: -20px;
+            bottom: -30px;
             left: 5%;
             z-index: 10;
-            text-align: left;
-            pointer-events: none;
         }
 
-        .gradient-script {
+        .title-script {
             font-family: 'Playfair Display', serif;
             font-style: italic;
-            font-size: 5rem;
+            font-size: 5.5rem;
             font-weight: 700;
             line-height: 0.9;
-            /* 粉到橙的高级渐变色 */
             background: linear-gradient(135deg, #ff99cc 0%, #ffcc66 50%, #ff6699 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             filter: drop-shadow(2px 4px 8px rgba(0,0,0,0.6));
         }
 
-        .gradient-sub {
+        .title-sub {
             font-family: 'Bebas Neue', sans-serif;
             font-size: 4rem;
             letter-spacing: 2px;
             background: linear-gradient(135deg, #ff99cc 0%, #ffcc66 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-top: -10px;
         }
 
-        .sub-chinese {
-            font-family: 'Space Grotesk', sans-serif;
+        .title-chinese {
             font-size: 1.5rem;
             font-weight: 700;
-            letter-spacing: 8px;
+            letter-spacing: 10px;
             color: #fff;
             margin-top: 5px;
             text-shadow: 1px 2px 4px rgba(0,0,0,0.5);
         }
 
-        /* 封面右侧说明文案栏 */
-        .cover-info-panel {
-            padding: 2rem;
+        .cover-meta {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
-        .issue-number {
+        .issue-tag {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 5rem;
+            font-size: 6rem;
             line-height: 1;
             color: var(--pink-accent);
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             letter-spacing: 2px;
         }
 
-        .cover-info-panel h1 {
+        .cover-meta h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 3rem;
+            font-size: 3.5rem;
             line-height: 1.1;
+            margin-bottom: 2rem;
+        }
+
+        .cover-meta p {
+            font-size: 1.1rem;
+            opacity: 0.85;
             margin-bottom: 1.5rem;
         }
 
-        .cover-info-panel p {
-            font-size: 1.05rem;
-            opacity: 0.85;
-            margin-bottom: 2rem;
-            line-height: 1.6;
-        }
-
-        .explore-btn {
-            background-color: var(--pink-accent);
-            color: white;
-            border: none;
-            padding: 1rem 2.5rem;
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            font-size: 1rem;
-            cursor: pointer;
-            letter-spacing: 1px;
-            box-shadow: 0 8px 20px rgba(255, 51, 153, 0.4);
-            transition: transform 0.2s, background-color 0.2s;
-        }
-
-        .explore-btn:hover {
-            transform: translateY(-3px);
-            background-color: #ff1a8c;
-        }
-
-        /* --- 穿搭模拟器页：高级暗黑杂志风 --- */
-        .simulator-grid {
+        /* --- Spread 2：哲学与深度访谈 (复刻 11.jpg & 10.jpg) --- */
+        .spread-philosophy {
+            background-color: #1a191d;
             display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .pink-organic-card {
+            background-color: var(--pink-accent);
+            color: var(--text-dark);
+            padding: 4rem;
+            border-radius: 45% 55% 60% 40% / 50% 45% 55% 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .pink-organic-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .pink-organic-card p {
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .philosophy-text-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            line-height: 1.2;
+            margin-bottom: 2rem;
+            color: #fff;
+        }
+
+        .philosophy-text-content .author-info {
+            font-size: 0.95rem;
+            opacity: 0.8;
+            border-left: 3px solid var(--pink-accent);
+            padding-left: 1.5rem;
+            line-height: 1.8;
+        }
+
+        /* --- Spread 3：黄金岁月与四大支柱 (复刻 mock.jpg & 9.jpg) --- */
+        .spread-golden {
+            background-color: var(--yellow-zine);
+            color: var(--text-dark);
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 6rem 4rem;
+        }
+
+        .golden-left h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 6rem;
+            line-height: 0.9;
+            letter-spacing: 2px;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+        }
+
+        .golden-left p {
+            font-size: 1.15rem;
+            font-weight: 600;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .pillars-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+
+        .pillar-card {
+            background-color: var(--text-dark);
+            color: #fff;
+            padding: 1.8rem 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .pillar-card h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: var(--yellow-zine);
+        }
+
+        .pillar-card p {
+            font-size: 0.9rem;
+            opacity: 0.85;
+        }
+
+        /* --- Spread 4：实用穿搭指南 (复刻 5.jpg & 6.jpg & 7.jpg) --- */
+        .spread-styling {
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 4rem;
             align-items: center;
         }
 
-        .stage-card {
-            background-color: var(--card-dark);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        .stripe-banner {
+            background: repeating-linear-gradient(
+                45deg,
+                #000,
+                #000 30px,
+                #fff 30px,
+                #fff 60px
+            );
+            padding: 4rem;
+            color: #fff;
             border-radius: 12px;
-            padding: 3rem;
-            text-align: center;
             position: relative;
             box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            min-height: 500px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
         }
 
-        .stage-badge {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background-color: var(--pink-accent);
-            color: #fff;
+        .stripe-banner-inner {
+            background-color: var(--bg-dark);
+            padding: 3rem;
+            border-radius: 8px;
+        }
+
+        .stripe-banner-inner h3 {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 1rem;
-            padding: 0.3rem 0.8rem;
+            font-size: 3rem;
             letter-spacing: 1px;
-            border-radius: 4px;
-        }
-
-        /* 换装模型舞台 */
-        .avatar-stage-box {
-            position: relative;
-            width: 240px;
-            height: 320px;
-            background: radial-gradient(circle, #3a383d 20%, transparent 20%), var(--bg-dark);
-            background-size: 12px 12px;
-            border-radius: 120px 120px 80px 80px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 2rem;
-        }
-
-        .dress-layer {
-            position: absolute;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            user-select: none;
-        }
-
-        #layer-glasses { top: 32%; font-size: 4.5rem; z-index: 5; }
-        #layer-hat { top: -12%; font-size: 5rem; z-index: 6; }
-        #layer-outfit { bottom: -10%; font-size: 6.5rem; z-index: 4; }
-
-        .quote-display {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            font-size: 1.15rem;
-            color: #ff99cc;
-            max-width: 90%;
-        }
-
-        /* 控制面板 */
-        .controls-panel h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .controls-panel p {
-            opacity: 0.75;
-            margin-bottom: 2rem;
-            font-size: 0.95rem;
-        }
-
-        .control-group {
-            margin-bottom: 1.8rem;
-        }
-
-        .control-label {
-            display: block;
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.2rem;
-            letter-spacing: 1px;
-            margin-bottom: 0.6rem;
+            margin-bottom: 1.5rem;
             color: var(--pink-accent);
         }
 
-        .options-row {
-            display: flex;
-            gap: 0.8rem;
-            flex-wrap: wrap;
+        .stripe-banner-inner p {
+            font-size: 1.05rem;
+            margin-bottom: 1.2rem;
+            opacity: 0.9;
         }
 
-        .opt-choice-btn {
-            background-color: var(--card-dark);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: var(--text-light);
-            padding: 0.6rem 1.2rem;
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 600;
+        .styling-rules h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .rule-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .rule-item h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.4rem;
+            color: var(--pink-accent);
+        }
+
+        .rule-item p {
+            font-size: 0.95rem;
+            opacity: 0.75;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem;
             font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            border-radius: 4px;
+            opacity: 0.5;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .opt-choice-btn:hover, .opt-choice-btn.active {
-            background-color: var(--pink-accent);
-            border-color: var(--pink-accent);
-            color: #ffffff;
-            transform: translateY(-2px);
-        }
-
-        /* 响应式设计 */
-        @media (max-width: 900px) {
-            .cover-section, .simulator-grid {
+        /* 响应式适配 */
+        @media (max-width: 960px) {
+            .spread-cover, .spread-philosophy, .spread-golden, .spread-styling {
                 grid-template-columns: 1fr;
                 gap: 3rem;
+                padding: 4rem 2rem;
             }
-            .organic-frame-container {
-                height: 450px;
-            }
+            .organic-cover-box { height: 450px; }
+            .golden-left h2 { font-size: 4rem; }
         }
     </style>
 </head>
@@ -346,140 +371,113 @@
     <!-- 顶栏导航 -->
     <header>
         <div class="zine-brand">Elderly with Style.</div>
-        <div class="nav-menu">
-            <button class="nav-tab active" onclick="switchPage('home')">Cover 封面</button>
-            <button class="nav-tab" onclick="switchPage('simulator')">Dress-Up 穿搭模拟器</button>
+        <div class="nav-links">
+            <a href="#cover" class="nav-link">Cover 封面</a>
+            <a href="#philosophy" class="nav-link">Philosophy 哲学</a>
+            <a href="#golden" class="nav-link">Golden Years 黄金岁月</a>
+            <a href="#styling" class="nav-link">Styling 穿搭指南</a>
         </div>
     </header>
 
-    <!-- 首页：高级独立杂志封面 -->
-    <section id="home" class="page active">
-        <div class="cover-section">
-            
-            <!-- 左侧：松石绿有机图框与渐变艺术标题 -->
-            <div class="organic-frame-container">
-                <!-- 内部人物插图或符号 -->
-                <div style="font-size: 8rem; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));">👵🕶️</div>
-                
-                <div class="magazine-title-overlay">
-                    <div class="gradient-script">Elderly</div>
-                    <div class="gradient-sub">(with) Style</div>
-                    <div class="sub-chinese">潮 嬷 型 公</div>
+    <!-- 1. 封面区块 -->
+    <section id="cover" class="zine-spread">
+        <div class="spread-cover">
+            <div class="organic-cover-box">
+                <div style="font-size: 9rem; text-shadow: 0 15px 30px rgba(0,0,0,0.3);">🕶️👵</div>
+                <div class="cover-title-group">
+                    <div class="title-script">Elderly</div>
+                    <div class="title-sub">(with) Style</div>
+                    <div class="title-chinese">潮 嬷 型 公</div>
                 </div>
             </div>
-
-            <!-- 右侧：设计哲学与文案 -->
-            <div class="cover-info-panel">
-                <div class="issue-number">12</div>
-                <h1>Styling for the elderly emphasizes comfort, dignity.</h1>
-                <p>
-                    摆脱潮流与外界期待的束缚，风格出众的年长人士正成为一种新的理想范本[cite: 12]。利用精细剪裁的轮廓、舒适的布料与功能性配件，展现无需言语的自我表达[cite: 1]。
-                </p>
-                <div style="font-size: 0.9rem; opacity: 0.7; margin-bottom: 2rem;">
-                    * Your personal style guide. Utilizing tailored silhouettes, comfortable fabrics, and functional accessories[cite: 1].
-                </div>
-                <button class="explore-btn" onclick="switchPage('simulator')">
-                    体验互动穿搭模拟器 &rarr;
-                </button>
+            <div class="cover-meta">
+                <div class="issue-tag">12</div>
+                <h1>Styling for the elderly emphasizes comfort, dignity[cite: 1].</h1>
+                <p>Your personal style guide. Utilizing tailored silhouettes, comfortable fabrics, and functional accessories[cite: 1].</p>
+                <p style="font-style: italic; opacity: 0.7;">"The specifics almost don't matter, since inevitably it's not what you wear but how[cite: 1]."</p>
             </div>
-
         </div>
     </section>
 
-    <!-- 穿搭模拟器页面 -->
-    <section id="simulator" class="page">
-        <div class="simulator-grid">
-            
-            <!-- 视觉输出舞台 -->
-            <div class="stage-card">
-                <div class="stage-badge">INTERACTIVE ZINE</div>
-                
-                <div class="avatar-stage-box">
-                    <div style="font-size: 6rem; opacity: 0.3;">👵</div>
-                    <!-- 动态穿搭图层 -->
-                    <div id="layer-glasses" class="dress-layer">🕶️</div>
-                    <div id="layer-hat" class="dress-layer">🧢</div>
-                    <div id="layer-outfit" class="dress-layer">🧥</div>
-                </div>
-
-                <div class="quote-display" id="quoteBox">
-                    “Fashion is ageless, and seniors have every right to express their unique personalities[cite: 9].”
+    <!-- 2. 哲学与网路热潮区块 -->
+    <section id="philosophy" class="zine-spread">
+        <div class="spread-philosophy">
+            <div class="pink-organic-card">
+                <h3>Inner Octogenarian</h3>
+                <p>Lately, it seems, everyone on the internet wants to get in touch with their inner octogenarian. People on TikTok are enamored with the coastal-grandma effect—think Nancy Meyers heroines—while others are trying the fancy-grandma aesthetic—with guiding lights like Iris Apfel[cite: 12].</p>
+                <p>风格出众的年长人士正成为一种新的理想范本，人们欣喜于他们的从容自信，也赞美他们独特而不妥协的个性[cite: 12]。</p>
+            </div>
+            <div class="philosophy-text-content">
+                <h2>這些「老頭」上了雜誌封面：哲學化 + 風格化 + 深刻化</h2>
+                <div class="author-info">
+                    <strong>撰文 - 融</strong><br>
+                    在臺北出生長大的五年級後段班，曾任廣告文案，任過幾本雜誌的創刊總編輯。探討老年人如何透過服裝進行自我表達，打破年齡刻板印象[cite: 2]。
                 </div>
             </div>
-
-            <!-- 控制面板 -->
-            <div class="controls-panel">
-                <h2>Senior Style Workshop</h2>
-                <p>自由搭配眼镜、帽子与标志性外套，打破年龄的刻板印象，探索属于你的黄金岁月美学[cite: 9]。</p>
-
-                <!-- 眼镜选择 -->
-                <div class="control-group">
-                    <label class="control-label">1. EYEWEAR / 风格眼镜</label>
-                    <div class="options-row">
-                        <button class="opt-choice-btn active" onclick="updateLook('glasses', '🕶️', '绿色大墨镜：彰显不妥协的前卫个性。', this)">复古绿墨镜</button>
-                        <button class="opt-choice-btn" onclick="updateLook('glasses', '👓', '知性金丝框：温润而富有智识积淀。', this)">知性金丝圆框</button>
-                        <button class="opt-choice-btn" onclick="updateLook('glasses', '🕶️✨', '前卫猫眼：跳脱传统，拥抱张扬美学。', this)">前卫猫眼墨镜</button>
-                    </div>
-                </div>
-
-                <!-- 帽子选择 -->
-                <div class="control-group">
-                    <label class="control-label">2. HEADWEAR / 头部造型</label>
-                    <div class="options-row">
-                        <button class="opt-choice-btn active" onclick="updateLook('hat', '🧢', '潮流棒球帽：注入街头与运动的松弛活力 (Athleisure)[cite: 7]。', this)">潮流棒球帽</button>
-                        <button class="opt-choice-btn" onclick="updateLook('hat', '🎩', '英伦绅士礼帽：岁月沉淀的优雅风度。', this)">英伦礼帽</button>
-                        <button class="opt-choice-btn" onclick="updateLook('hat', '🧣', '艺术头巾：将色彩与自信戴在头上。', this)">艺术丝巾</button>
-                    </div>
-                </div>
-
-                <!-- 外套选择 -->
-                <div class="control-group">
-                    <label class="control-label">3. OUTERWEAR / 核心外套</label>
-                    <div class="options-row">
-                        <button class="opt-choice-btn active" onclick="updateLook('outfit', '🧥', '结构感西装：舒适剪裁与挺拔姿态并存[cite: 1]。', this)">结构感西装</button>
-                        <button class="opt-choice-btn" onclick="updateLook('outfit', '🧶', '慵懒针织衫：Coastal Grandma 般轻松阳光的优雅[cite: 12]。', this)">慵懒针织衫</button>
-                        <button class="opt-choice-btn" onclick="updateLook('outfit', '🧥🔴', '高饱和红风衣：Move beyond muted tones by embracing bold colors[cite: 6]。', this)">大胆红色风衣</button>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </section>
 
-    <!-- JavaScript 交互逻辑 -->
-    <script>
-        function switchPage(pageId) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    <!-- 3. 黄金岁月与四大支柱区块 -->
+    <section id="golden" class="zine-spread" style="border: none;">
+        <div class="spread-golden">
+            <div class="golden-left">
+                <h2>Why Dress-Up In Your Golden Years?</h2>
+                <p>Fashion is ageless, and seniors have every right to express their unique personalities through clothing[cite: 9].</p>
+                <p>Dressing young IS about feeling confident, vibrant, and connected to the world[cite: 6].</p>
+            </div>
+            <div class="pillars-grid">
+                <div class="pillar-card">
+                    <h4>Self-Expression</h4>
+                    <p>Wearing younger styles can be a fun way to communicate vibrancy and individuality[cite: 9].</p>
+                </div>
+                <div class="pillar-card">
+                    <h4>Confidence Boost</h4>
+                    <p>Clothes that fit well and look sharp can make a person feel strong and capable, regardless of age[cite: 9].</p>
+                </div>
+                <div class="pillar-card">
+                    <h4>Defying Stereotypes</h4>
+                    <p>Reshaping perceptions of what it means to age through bold accessories and modern styling[cite: 9].</p>
+                </div>
+                <div class="pillar-card">
+                    <h4>Keep Active & Youthful</h4>
+                    <p>Seniors who explore fashion trends feel more energized to try new things[cite: 9].</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-            document.getElementById(pageId).classList.add('active');
+    <!-- 4. 实用穿搭指南区块 -->
+    <section id="styling" class="zine-spread">
+        <div class="spread-styling">
+            <div class="stripe-banner">
+                <div class="stripe-banner-inner">
+                    <h3>Styling Up</h3>
+                    <p>Style is something each of us already has, all we need to do is find it[cite: 6].</p>
+                    <p>Move beyond muted tones by embracing bold colors such as red jackets, pink coats, and purple-streaked hair[cite: 6].</p>
+                    <p>Mixing different textures and lengths can create a stylish outfit[cite: 6].</p>
+                </div>
+            </div>
+            <div class="styling-rules">
+                <h2>The Golden Rules</h2>
+                <div class="rule-item">
+                    <h4>Button-up Shirts & Chinos</h4>
+                    <p>Button-up shirts are timeless and can be worn on various occasions. Pair them with chinos or shorts for a comfortable yet stylish outfit[cite: 7].</p>
+                </div>
+                <div class="rule-item">
+                    <h4>Athleisure Trend</h4>
+                    <p>Athleisure is a trend that mixes athletic and leisure wear for style and comfort in the golden years[cite: 7].</p>
+                </div>
+                <div class="rule-item">
+                    <h4>Accessories Elevation</h4>
+                    <p>Elevate simple outfits with accessories like patterned hats, silk scarves, colorful handbags, and layered necklaces[cite: 6].</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-            if(pageId === 'home') {
-                document.querySelectorAll('.nav-tab')[0].classList.add('active');
-            } else {
-                document.querySelectorAll('.nav-tab')[1].classList.add('active');
-            }
-        }
+    <footer>
+        <p>&copy; 2026 Elderly with Style. All rights reserved. Designed by Zine Creator.</p>
+    </footer>
 
-        const philosophyQuotes = [
-            "“Fashion is ageless, and seniors have every right to express their unique personalities[cite: 9].”",
-            "“Dressing young IS about feeling confident, vibrant, and connected to the world[cite: 6].”",
-            "“When an older person rocks a stylish jacket, it defies societal expectations[cite: 9].”",
-            "“The specifics almost don't matter, since inevitably it's not what you wear but HOW[cite: 1].”"
-        ];
-
-        function updateLook(category, icon, description, btnElement) {
-            document.getElementById(`layer-${category}`).innerText = icon;
-
-            // 切换按钮高亮
-            const parent = btnElement.parentElement;
-            parent.querySelectorAll('.opt-choice-btn').forEach(b => b.classList.remove('active'));
-            btnElement.classList.add('active');
-
-            // 更新下方哲理金句
-            const randomQuote = philosophyQuotes[Math.floor(Math.random() * philosophyQuotes.length)];
-            document.getElementById('quoteBox').innerText = `“${description}” — ${randomQuote}`;
-        }
-    </script>
 </body>
 </html>
