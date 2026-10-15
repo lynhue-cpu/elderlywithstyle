@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elderly with Style | 互动先锋小志</title>
+    <!-- 引入 Google Fonts 营造现代先锋杂志排版感 -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f7f4ed;
+            --text-color: #1a1a1a;
+            --accent-red: #ff3333;
+            --accent-green: #2d5a27;
+            --accent-pink: #ff69b4;
+            --border-color: #1a1a1a;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Space Grotesk', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* 导航栏 */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 4rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .nav-links button {
+            background: none;
+            border: 2px solid var(--border-color);
+            padding: 0.6rem 1.2rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 1rem;
+        }
+
+        .nav-links button:hover, .nav-links button.active {
+            background-color: var(--border-color);
+            color: var(--bg-color);
+        }
+
+        /* 页面容器切换 */
+        .page {
+            display: none;
+            min-height: calc(100vh - 90px);
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- 首页样式 --- */
+        .hero {
+            padding: 6rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-title h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            line-height: 1.05;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-title h1 span {
+            color: var(--accent-red);
+            font-style: italic;
+        }
+
+        .hero-title p {
+            font-size: 1.25rem;
+            line-height: 1.6;
+            margin-bottom: 2.5rem;
+            opacity: 0.85;
+        }
+
+        .cta-btn {
+            background-color: var(--accent-red);
+            color: white;
+            border: 2px solid var(--border-color);
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 4px 4px 0px var(--border-color);
+            transition: transform 0.1s, box-shadow 0.1s;
+        }
+
+        .cta-btn:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px var(--border-color);
+        }
+
+        .hero-card {
+            background: #fff;
+            border: 3px solid var(--border-color);
+            padding: 2.5rem;
+            box-shadow: 10px 10px 0px var(--border-color);
+            position: relative;
+            transform: rotate(2deg);
+        }
+
+        .hero-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-card ul {
+            list-style: none;
+        }
+
+        .hero-card li {
+            padding: 0.6rem 0;
+            border-bottom: 1px dashed #ccc;
+            font-weight: 500;
+        }
+
+        /* --- 穿搭模拟器样式 --- */
+        .simulator-container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .model-stage {
+            background: #fff;
+            border: 3px solid var(--border-color);
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            box-shadow: 10px 10px 0px var(--border-color);
+            overflow: hidden;
+        }
+
+        /* 模拟换装元素的动态图层 */
+        .avatar-base {
+            font-size: 7rem;
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .avatar-layer {
+            position: absolute;
+            font-size: 3.5rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* 各个配件的相对定位显示 */
+        #layer-glasses { top: 32%; }
+        #layer-outfit { top: 52%; }
+        #layer-accessory { top: 40%; right: 28%; font-size: 2.5rem; }
+
+        .model-caption {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.3rem;
+            margin-top: 1rem;
+            text-align: center;
+            padding: 0 1rem;
+        }
+
+        .controls-panel h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .controls-panel p {
+            margin-bottom: 2rem;
+            opacity: 0.8;
+        }
+
+        .control-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .control-group label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .btn-options {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .option-btn {
+            background: white;
+            border: 2px solid var(--border-color);
+            padding: 0.6rem 1.2rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-btn:hover, .option-btn.selected {
+            background-color: var(--border-color);
+            color: white;
+        }
+
+        /* 响应式适配 */
+        @media (max-width: 900px) {
+            .hero, .simulator-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .hero-title h1 {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 顶栏导航 -->
+    <header>
+        <div class="logo">Elders with Style.</div>
+        <div class="nav-links">
+            <button class="nav-btn active" onclick="switchPage('home')">首页</button>
+            <button class="nav-btn" onclick="switchPage('simulator')">数字换装模拟器</button>
+        </div>
+    </header>
+
+    <!-- 页面 1：动态首页 -->
+    <section id="home" class="page active">
+        <div class="hero">
+            <div class="hero-title">
+                <h1>Fashion is <span>ageless</span>, style is eternal.</h1>
+                <p>打破年龄刻板印象，探索银发族的优雅、尊严与无畏自我表达。这是一份关于老年时尚与生活哲学的互动数码志。</p>
+                <button class="cta-btn" onclick="switchPage('simulator')">体验穿搭模拟器 &rarr;</button>
+            </div>
+            <div class="hero-card">
+                <h3># 小志核心栏目</h3>
+                <ul>
+                    <li>✨ 潮嬷型公：拒绝枯燥素色，拥抱大胆色彩</li>
+                    <li>👓 风格哲学：不随波逐流的穿衣态度</li>
+                    <li>🛋️ 黄金岁月：松弛感与舒适剪裁并存</li>
+                    <li>🔥 互动体验：用数字创意重新定义衰老</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页面 2：老年时尚穿搭模拟器 -->
+    <section id="simulator" class="page">
+        <div class="simulator-container">
+            <!-- 视觉舞台 -->
+            <div class="model-stage" id="stageCard">
+                <div class="avatar-base">👵👴</div>
+                <div id="layer-glasses" class="avatar-layer">🕶️</div>
+                <div id="layer-outfit" class="avatar-layer">🧥</div>
+                <div id="layer-accessory" class="avatar-layer">🧣</div>
+                <div class="model-caption" id="quoteDisplay">“穿搭是无需言语的自我宣告。”</div>
+            </div>
+
+            <!-- 控制面板 -->
+            <div class="controls-panel">
+                <h2>老年时尚造型工作坊</h2>
+                <p>为我们的银发模特自由组合单品，探索“Fancy Grandma”与“Coastal Grandma”的风格碰撞！[cite: 12]</p>
+                
+                <!-- 选项 1：眼镜/墨镜 -->
+                <div class="control-group">
+                    <label>选择眼镜风格</label>
+                    <div class="btn-options" data-category="glasses">
+                        <button class="option-btn selected" onclick="updateStyle('glasses', '🕶️', this)">复古绿镜</button>
+                        <button class="option-btn" onclick="updateOption('glasses', '👓', this)">知性金丝</button>
+                        <button class="option-btn" onclick="updateOption('glasses', '🕶️✨', this)">前卫猫眼</button>
+                    </div>
+                </div>
+
+                <!-- 选项 2：外套/服装 -->
+                <div class="control-group">
+                    <label>选择核心外套</label>
+                    <div class="btn-options" data-category="outfit">
+                        <button class="option-btn selected" onclick="updateStyle('outfit', '🧥', this)">经典西装外套</button>
+                        <button class="option-btn" onclick="updateStyle('outfit', '🧶', this)">慵懒针织衫</button>
+                        <button class="option-btn" onclick="updateStyle('outfit', '🧥🔴', this)">大胆红色风衣</button>
+                    </div>
+                </div>
+
+                <!-- 选项 3：配件点缀 -->
+                <div class="control-group">
+                    <label>选择点缀配件</label>
+                    <div class="btn-options" data-category="accessory">
+                        <button class="option-btn selected" onclick="updateStyle('accessory', '🧣', this)">真丝围巾</button>
+                        <button class="option-btn" onclick="updateStyle('accessory', '👜', this)">亮色手袋</button>
+                        <button class="option-btn" onclick="updateStyle('accessory', '🧢', this)">印花帽饰</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- JavaScript 交互逻辑 -->
+    <script>
+        // 页面切换逻辑
+        function switchPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            
+            document.getElementById(pageId).classList.add('active');
+            
+            // 高亮对应导航按钮
+            if(pageId === 'home') {
+                document.querySelectorAll('.nav-btn')[0].classList.add('active');
+            } else {
+                document.querySelectorAll('.nav-btn')[1].classList.add('active');
+            }
+        }
+
+        // 穿搭模拟器状态更新
+        const quotes = [
+            "“服装是老去时最自由的盔甲。”",
+            "“拒绝单一色调，生命在晚年依然热烈。”",
+            "“舒适与尊严，是高级审美的底层逻辑。”",
+            "“时尚无关于年龄，而关乎你如何定义自己。”"
+        ];
+
+        function updateStyle(category, emoji, btnElement) {
+            // 更新对应图层 Emoji
+            if (category === 'glasses') {
+                document.getElementById('layer-glasses').innerText = emoji;
+            } else if (category === 'outfit') {
+                document.getElementById('layer-outfit').innerText = emoji;
+            } else if (category === 'accessory') {
+                document.getElementById('layer-accessory').innerText = emoji;
+            }
+
+            // 切换按钮激活状态
+            const parentGroup = btnElement.parentElement;
+            parentGroup.querySelectorAll('.option-btn').forEach(btn => btn.classList.remove('selected'));
+            btnElement.classList.add('selected');
+
+            // 随机切换一句小志哲理金句，增强互动感
+            const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+            document.getElementById('quoteDisplay').innerText = randomQuote;
+            
+            // 触发舞台轻微跳动动画
+            const stage = document.getElementById('stageCard');
+            stage.style.transform = 'scale(1.01)';
+            setTimeout(() => {
+                stage.style.transform = 'scale(1)';
+            }, 150);
+        }
+    </script>
+</body>
+</html>
